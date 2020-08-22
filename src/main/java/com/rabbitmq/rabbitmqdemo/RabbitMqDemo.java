@@ -30,7 +30,7 @@ public class RabbitMqDemo implements CommandLineRunner {
         simpleMessage.setName("FirstMessage");
         simpleMessage.setDescription("simpleDescription");
 
-        rabbitTemplate.convertAndSend("test.Exchange", "testRouting", simpleMessage);
+        rabbitTemplate.convertAndSend("MyTopicExchange", "topic", simpleMessage);
     }
 
 }

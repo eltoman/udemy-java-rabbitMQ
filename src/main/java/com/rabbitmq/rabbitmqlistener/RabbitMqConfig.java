@@ -1,7 +1,6 @@
 package com.rabbitmq.rabbitmqlistener;
 
-import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
@@ -22,6 +21,25 @@ public class RabbitMqConfig {
     }
 
     @Bean
+    Exchange myTopicExchange(){
+        return ExchangeBuilder.topicExchange("MyTopicExchange")
+                .autoDelete()
+                .durable(true)
+                .build();
+    }
+
+    @Bean
+    Binding binding(){
+        //return new Binding(MY_QUEUE, Binding.DestinationType.QUEUE, "MyTopicExchange", "topic", null);
+
+        return BindingBuilder
+                .bind(myQueue())
+                .to(myTopicExchange())
+                .with("topic")
+                .noargs();
+    }
+
+    @Bean
     Queue myRoutedQueue(){
         return new Queue(MY_ROUTED_QUEUE, true);
     }
@@ -38,8 +56,8 @@ public class RabbitMqConfig {
     MessageListenerContainer messageListenerContainer(){
         SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
         simpleMessageListenerContainer.setConnectionFactory(connectionFactory());
-        simpleMessageListenerContainer.setQueues(myQueue());
         simpleMessageListenerContainer.setQueues(myRoutedQueue());
+        simpleMessageListenerContainer.setQueues(myQueue());
         simpleMessageListenerContainer.setMessageListener(new RabbitMqMessageListener());
         return simpleMessageListenerContainer;
     }

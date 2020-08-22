@@ -1,0 +1,7 @@
+com/rabbitmq/rabbitmqlistener/RabbitMqListenerDemo.class
+com/rabbitmq/rabbitmqlistener/RabbitMqMessageListener.class
+com/rabbitmq/rabbitmqlistener/RabbitMqQueueConfiguration.class
+com/rabbitmq/rabbitmqlistener/RabbitMqExchangeConfiguration.class
+com/rabbitmq/rabbitmqdemo/RabbitMqDemo.class
+com/rabbitmq/rabbitmqdemo/SimpleMessage.class
+com/rabbitmq/rabbitmqlistener/RabbitMqConfig.class
